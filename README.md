@@ -7,6 +7,8 @@ This ZEsarUX Installer & Updater script downloads/clones the source files to HOM
 
 ## TO RUN
 
+Download the file zesarux.sh
+
 Ensure the script is executable.
 
 `Right-click > properties > Executable`
