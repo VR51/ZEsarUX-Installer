@@ -35,7 +35,7 @@ clear
 #
 #	Right-click > properties > Executable
 #	OR
-#	chmod u+x ZEsarUX.sh
+#	chmod u+x zesarux.sh
 #
 #	Launch by clicking the script file or by typing bash zesarux.sh at the command line.
 #
