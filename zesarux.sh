@@ -35,7 +35,7 @@ clear
 #
 #	Right-click > properties > Executable
 #	OR
-#	chmod u+x zesarux.sh
+#	chmod u+x ZEsarUX.sh
 #
 #	Launch by clicking the script file or by typing bash zesarux.sh at the command line.
 #
@@ -263,8 +263,12 @@ function zesarux_prompt() {
 				# sudo ln -s "$HOME/src/zesarux/src/zesarux" "$install/zesarux" # We were going to softlink to the executable but the program wouldn't run as a link
 
 				# Add desktop file for application menu if it does not already exist
+				if test -f "$HOME/src/zesarux/src/extras/logos/zesarux.png"; then
+					sudo mv "$HOME/src/zesarux/src/extras/logos/zesarux.png" "/usr/share/icons/zesarux.png"
+				fi
+				
 				if test ! -f "/usr/share/applications/zesarux.desktop"; then
-					echo -e "[Desktop Entry]\nType=Application\nCategories=Game;Games\nName=ZEsarUX\nExec=zesarux\nIcon=preferences-desktop-color\n" > "$HOME/src/zesarux/src/zesarux.desktop"
+					echo -e "[Desktop Entry]\nType=Application\nCategories=Game;Games\nName=ZEsarUX\nExec=zesarux\nIcon=zesarux\n" > "$HOME/src/zesarux/src/zesarux.desktop"
 					sudo mv "$HOME/src/zesarux/src/zesarux.desktop" "/usr/share/applications/zesarux.desktop"
 				fi
 
