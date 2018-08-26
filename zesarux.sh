@@ -263,7 +263,7 @@ function zesarux_prompt() {
 				# sudo ln -s "$HOME/src/zesarux/src/zesarux" "$install/zesarux" # We were going to softlink to the executable but the program wouldn't run as a link
 
 				# Add desktop file for application menu if it does not already exist
-				if test ! -f "/usr/share/applications/zesarux.desktop"
+				if test ! -f "/usr/share/applications/zesarux.desktop"; then
 					echo -e "[Desktop Entry]\nType=Application\nCategories=Game;Games\nName=ZEsarUX\nExec=zesarux\nIcon=preferences-desktop-color\n" > "$HOME/src/zesarux/src/zesarux.desktop"
 					sudo mv "$HOME/src/zesarux/src/zesarux.desktop" "/usr/share/applications/zesarux.desktop"
 				fi
