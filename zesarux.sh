@@ -3,7 +3,7 @@ clear
 # set -x
 ###
 #
-#	ZEsarUX Installer 1.0.0
+#	ZEsarUX Installer 1.0.1
 #
 #	General installer & updater.
 #	Compiles software from source and installs binaries and files to their expected locations.
@@ -13,8 +13,8 @@ clear
 #
 #	Lead Author: Lee Hodson
 #	Donate: https://paypal.me/vr51
-#	Website: https://journalxtra.com/installers/zesarux
-#	This Release: 25th Aug 2018
+#	Website: https://journalxtra.com/installers/zesarux/
+#	This Release: 27th Aug 2018
 #	First Written: 25th June 2018
 #	First Release: 25th June 2018
 #
@@ -116,20 +116,20 @@ function zesarux_prompt() {
 		
 			0)
 				message[1]='No cleaning'
-				menu[1]='Update ZEsarUX'
-				mode[1]='MODE: Update. Press 3 to change mode.'
+				menu[1]='Update ZEsarUX. Do not clean build cache.'
+				mode[1]='MODE 1: Update. Press 3 to change mode.'
 			;;
 
 			1)
 				message[1]='Clean Compiler Cache'
-				menu[1]='Update ZEsarUX'
-				mode[1]='MODE: Update. Press 3 to change mode.'
+				menu[1]='Update ZEsarUX. Clean cache before build.'
+				mode[1]='MODE 2: Update. Press 3 to change mode.'
 			;;
 
 			2)
 				message[1]='Delete Source Files'
-				menu[1]='Install ZEsarUX'
-				mode[1]='MODE: Install. Press 3 to change mode.'
+				menu[1]='Install ZEsarUX. Delete old source code. Download fresh source code before build.'
+				mode[1]='MODE 3: Install. Press 3 to change mode.'
 			;;
 
 		esac
@@ -155,7 +155,23 @@ function zesarux_prompt() {
 		
 			0)
 				menu[6]='Install Essential Build Packages'
-				message[1]='\nIf installation fails Install Essential Build Packages then try again.'
+				
+					case ${conf[1]} in
+					
+						0) # Update - No spring clean. Update source files
+							message[1]='\nIf installation fails Install Essential Build Packages and/or change to Mode 2 or 3 then try again.\n'
+						;;
+					
+						1) # Update - spring clean first. Update source files
+							message[1]='\nIf installation fails Install Essential Build Packages and/or change to Mode 3 try again.\n'
+						;;
+						
+						2) # Clean install. Delete source files. Download fresh source files.
+							message[1]='\nIf installation fails Install Essential Build Packages then try again.\n'
+						;;
+					
+				esac
+				
 			;;
 			
 		esac
@@ -205,7 +221,7 @@ function zesarux_prompt() {
 
 			cd "$HOME/src"
 
-			# Test the zesarux source files exist. Download them if not.
+			# Test source files exist. Download them if not.
 			if test -d "$HOME/src/zesarux" ; then
 				# Make sure we own the source files
 				sudo chown -R $user:$group "$HOME/src/zesarux"
@@ -253,7 +269,6 @@ function zesarux_prompt() {
 			# Build ZEsarUX
 			cd "$HOME/src/zesarux/src"
 			./configure
-			make clean
 			make $jobs
 
 			# Install ZEsarUX
