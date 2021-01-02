@@ -278,8 +278,8 @@ function zesarux_prompt() {
 				# sudo ln -s "$HOME/src/zesarux/src/zesarux" "$install/zesarux" # We were going to softlink to the executable but the program wouldn't run as a link
 
 				# Add desktop file for application menu if it does not already exist
-				if test -f "$HOME/src/zesarux/src/extras/logos/zesarux.png"; then
-					sudo mv "$HOME/src/zesarux/src/extras/logos/zesarux.png" "/usr/share/icons/zesarux.png"
+				if test -f "$HOME/src/zesarux/src/zesarux.xcf"; then
+					sudo mv "$HOME/src/zesarux/src/zesarux.xcf" "/usr/share/icons/zesarux.xcf"
 				fi
 				
 				if test ! -f "/usr/share/applications/zesarux.desktop"; then
