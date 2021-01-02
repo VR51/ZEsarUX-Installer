@@ -3,7 +3,7 @@ clear
 # set -x
 ###
 #
-#	ZEsarUX Installer 1.0.2
+#	ZEsarUX Installer 1.0.3
 #
 #	General installer & updater.
 #	Compiles software from source and installs binaries and files to their expected locations.
@@ -14,7 +14,7 @@ clear
 #	Lead Author: Lee Hodson
 #	Donate: https://paypal.me/vr51
 #	Website: https://journalxtra.com/installers/zesarux/
-#	This Release: 5th June 2020
+#	This Release: 2nd Jan 2021
 #	First Written: 25th June 2018
 #	First Release: 25th June 2018
 #
@@ -358,7 +358,7 @@ function zesarux_prompt() {
 		4) # Install software packages necessary to build ZEsarUX
 
 			sudo apt-get update
-			packages=( build-essential gcc g++ libqtwebkit-dev libsdl2* sdllib libqt5* qt5* libssl libsndfile schedtool libpthread* curl )
+			packages=( build-essential gcc g++ libqtwebkit-dev libsdl2* sdllib libqt5* qt5* libssl libsndfile schedtool libpthread* curl git )
 			for i in "${packages[@]}"; do
 				sudo apt-get build-dep -y -q $i
 				sudo apt-get install -y -q --install-suggests $i
