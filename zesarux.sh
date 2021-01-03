@@ -3,7 +3,7 @@ clear
 # set -x
 ###
 #
-#	ZEsarUX Installer 1.0.3
+#	ZEsarUX Installer 1.0.4
 #
 #	General installer & updater.
 #	Compiles software from source and installs binaries and files to their expected locations.
@@ -14,7 +14,7 @@ clear
 #	Lead Author: Lee Hodson
 #	Donate: https://paypal.me/vr51
 #	Website: https://journalxtra.com/installers/zesarux/
-#	This Release: 2nd Jan 2021
+#	This Release: 3rd Jan 2021
 #	First Written: 25th June 2018
 #	First Release: 25th June 2018
 #
@@ -280,6 +280,10 @@ function zesarux_prompt() {
 				# Add desktop file for application menu if it does not already exist
 				if test -f "$HOME/src/zesarux/src/zesarux.xcf"; then
 					sudo mv "$HOME/src/zesarux/src/zesarux.xcf" "/usr/share/icons/zesarux.xcf"
+					sudo mv "$HOME/src/zesarux/src/zesarux_16.png" "/usr/share/icons/zesarux_16.png"
+					sudo mv "$HOME/src/zesarux/src/zesarux_32.png" "/usr/share/icons/zesarux_32.png"
+					sudo mv "$HOME/src/zesarux/src/zesarux_48.png" "/usr/share/icons/zesarux_48.png"
+					sudo mv "$HOME/src/zesarux/src/zesarux_256.png" "/usr/share/icons/zesarux_256.png"
 				fi
 				
 				if test ! -f "/usr/share/applications/zesarux.desktop"; then
