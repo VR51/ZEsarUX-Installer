@@ -3,7 +3,7 @@ clear
 # set -x
 ###
 #
-#	ZEsarUX Installer 1.0.4
+#	ZEsarUX Installer 1.0.5
 #
 #	General installer & updater.
 #	Compiles software from source and installs binaries and files to their expected locations.
@@ -14,7 +14,7 @@ clear
 #	Lead Author: Lee Hodson
 #	Donate: https://paypal.me/vr51
 #	Website: https://journalxtra.com/installers/zesarux/
-#	This Release: 3rd Jan 2021
+#	This Release: 5th Jan 2021
 #	First Written: 25th June 2018
 #	First Release: 25th June 2018
 #
@@ -65,8 +65,8 @@ declare -a menu # Menu options are set within zesarux_prompt()
 declare -a message # Index indicates related conf, mode or menu item
 declare -a mode # Used for notices
 
-conf[0]=1 # Essentials # Install build essential software. 0 = Not done, 1 = Done
-conf[1]=2 # Clean Stale # Do no cleaning or run make clean or delete source files? 0/1/2. 0 = No, 1 = Soft, 2 = Hard.
+conf[0]=0 # Essentials # Install build essential software. 0 = Not done, 1 = Done
+conf[1]=0 # Clean Stale # Do no cleaning or run make clean or delete source files? 0/1/2. 0 = No, 1 = Soft, 2 = Hard.
 conf[2]=0 # Parallel jobs to run during build # Number of CPU cores + 1 is safe. Can be as high as 2*CPU cores. More jobs can shorten build time but not always and risks system stability. 0 = Auto.
 conf[3]=$(nproc) # Number of CPU cores the computer has.
 conf[4]=$(zesarux --version) # Installed ZEsarUX Version
