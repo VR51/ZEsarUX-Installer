@@ -362,7 +362,7 @@ function zesarux_prompt() {
 		4) # Install software packages necessary to build ZEsarUX
 
 			sudo apt-get update
-			packages=( build-essential gcc g++ libqtwebkit-dev libsdl2* sdllib libqt5* qt5* libssl libsndfile schedtool libpthread* curl git )
+			packages=( build-essential gcc g++ libqtwebkit-dev libsdl2* sdllib libqt5* qt5* libssl libsndfile schedtool libpthread* sox gzip curl git )
 			for i in "${packages[@]}"; do
 				sudo apt-get build-dep -y -q $i
 				sudo apt-get install -y -q --install-suggests $i
