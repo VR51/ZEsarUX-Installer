@@ -3,7 +3,7 @@ clear
 # set -x
 ###
 #
-#	ZEsarUX Installer 1.0.5
+#	ZEsarUX Installer 1.0.51
 #
 #	General installer & updater.
 #	Compiles software from source and installs binaries and files to their expected locations.
@@ -14,7 +14,7 @@ clear
 #	Lead Author: Lee Hodson
 #	Donate: https://paypal.me/vr51
 #	Website: https://journalxtra.com/installers/zesarux/
-#	This Release: 5th Jan 2021
+#	This Release: 22nd May 2022
 #	First Written: 25th June 2018
 #	First Release: 25th June 2018
 #
@@ -53,6 +53,7 @@ clear
 ## User Editable Options
 
 srcloc='https://github.com/chernandezba/zesarux.git' # ZEsarUX Git directory
+# srcext='https://api.github.com/repos/chernandezba/zesarux-extras/git/blobs/bbace42189963537a19bb06c69b40654772db6e0' # ZEsarUX Logo - See ZEsarUX Extras Repo # REST API Index https://api.github.com/repos/chernandezba/zesarux-extras/contents/extras/logos
 # install='/usr/games' # ZEsarUX installation path. Where should the compiled binary be installed to? Exact path. No trailing slash.
 
 user=$(whoami) # Current User
