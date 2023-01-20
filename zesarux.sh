@@ -290,7 +290,7 @@ function zesarux_prompt() {
 				fi
 				
 				if test ! -f "/usr/share/applications/zesarux.desktop"; then
-					echo -e "[Desktop Entry]\nType=Application\nCategories=Game;Games\nName=ZEsarUX\nExec=zesarux\nIcon=zesarux\n" > "$HOME/src/zesarux/src/zesarux.desktop"
+					echo -e "[Desktop Entry]\nType=Application\nCategories=Game;Games\nName=ZEsarUX\nExec=zesarux\nIcon=zesarux_256\n" > "$HOME/src/zesarux/src/zesarux.desktop"
 					sudo mv "$HOME/src/zesarux/src/zesarux.desktop" "/usr/share/applications/zesarux.desktop"
 				fi
 
