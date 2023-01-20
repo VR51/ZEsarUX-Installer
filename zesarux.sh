@@ -3,7 +3,7 @@ clear
 # set -x
 ###
 #
-#	ZEsarUX Installer 1.0.51
+#	ZEsarUX Installer 1.0.52
 #
 #	General installer & updater.
 #	Compiles software from source and installs binaries and files to their expected locations.
@@ -14,7 +14,7 @@ clear
 #	Lead Author: Lee Hodson
 #	Donate: https://paypal.me/vr51
 #	Website: https://journalxtra.com/installers/zesarux/
-#	This Release: 22nd May 2022
+#	This Release: 20th Jan 2023
 #	First Written: 25th June 2018
 #	First Release: 25th June 2018
 #
@@ -67,7 +67,7 @@ declare -a message # Index indicates related conf, mode or menu item
 declare -a mode # Used for notices
 
 conf[0]=0 # Essentials # Install build essential software. 0 = Not done, 1 = Done
-conf[1]=0 # Clean Stale # Do no cleaning or run make clean or delete source files? 0/1/2. 0 = No, 1 = Soft, 2 = Hard.
+conf[1]=2 # Clean Stale # Do no cleaning or run make clean or delete source files? 0/1/2. 0 = No, 1 = Soft, 2 = Hard.
 conf[2]=0 # Parallel jobs to run during build # Number of CPU cores + 1 is safe. Can be as high as 2*CPU cores. More jobs can shorten build time but not always and risks system stability. 0 = Auto.
 conf[3]=$(nproc) # Number of CPU cores the computer has.
 conf[4]=$(zesarux --version) # Installed ZEsarUX Version
@@ -270,7 +270,9 @@ function zesarux_prompt() {
 			# Build ZEsarUX
 			cd "$HOME/src/zesarux/src"
 			./configure
+			make clean
 			make $jobs
+			make utilities
 
 			# Install ZEsarUX
 			if test -f "$HOME/src/zesarux/src/zesarux"; then
@@ -363,7 +365,7 @@ function zesarux_prompt() {
 		4) # Install software packages necessary to build ZEsarUX
 
 			sudo apt-get update
-			packages=( build-essential gcc g++ libqtwebkit-dev libsdl2* sdllib libqt5* qt5* libssl libsndfile schedtool libpthread* sox gzip curl git )
+			packages=( build-essential gcc g++ libqtwebkit-dev libsdl2* sdllib libqt5* qt5* libssl libsndfile schedtool libpthread* x11 sox gzip curl git )
 			for i in "${packages[@]}"; do
 				sudo apt install -y -q $i
 				sudo apt install -y -q --install-suggests $i
