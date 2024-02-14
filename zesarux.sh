@@ -3,7 +3,7 @@ clear
 # set -x
 ###
 #
-#	ZEsarUX Installer 1.0.52
+#	ZEsarUX Installer 1.0.53
 #
 #	General installer & updater.
 #	Compiles software from source and installs binaries and files to their expected locations.
@@ -14,11 +14,11 @@ clear
 #	Lead Author: Lee Hodson
 #	Donate: https://paypal.me/vr51
 #	Website: https://journalxtra.com/installers/zesarux/
-#	This Release: 20th Jan 2023
+#	This Release: 14th Feb 2024
 #	First Written: 25th June 2018
 #	First Release: 25th June 2018
 #
-#	Copyright 2018 OneUP! <https://journalxtra.com>
+#	Copyright 2018 <https://journalxtra.com>
 #	License: GPL3
 #
 #	Programmer: Lee Hodson <journalxtra.com>, VR51 <vr51.com>
@@ -27,7 +27,7 @@ clear
 #
 # INSTALLS OR UPDATES
 #
-#	ZEsarUX the ZX Spectrum, Amstrad and SAM Emulator.
+#	ZEsarUX the world's best ZX Spectrum, Amstrad, Z80 machines and SAM Emulator.
 #
 #	TO RUN:
 #
@@ -269,7 +269,9 @@ function zesarux_prompt() {
 			
 			# Build ZEsarUX
 			cd "$HOME/src/zesarux/src"
-			./configure
+			export CFLAGS="-O3"
+			export LDFLAGS="-O3"
+			./configure --enable-memptr --enable-visualmem --enable-cpustats --enable-ssl --disable-caca --disable-aa --disable-cursesw --prefix /usr
 			make clean
 			make $jobs
 			make utilities
@@ -283,6 +285,7 @@ function zesarux_prompt() {
 				# Add desktop file for application menu if it does not already exist
 				if test -f "$HOME/src/zesarux/src/zesarux.xcf"; then
 					sudo mv "$HOME/src/zesarux/src/zesarux.xcf" "/usr/share/icons/zesarux.xcf"
+					sudo mv "$HOME/src/zesarux/src/zesarux.ico" "/usr/share/icons/zesarux.ico"
 					sudo mv "$HOME/src/zesarux/src/zesarux_16.png" "/usr/share/icons/zesarux_16.png"
 					sudo mv "$HOME/src/zesarux/src/zesarux_32.png" "/usr/share/icons/zesarux_32.png"
 					sudo mv "$HOME/src/zesarux/src/zesarux_48.png" "/usr/share/icons/zesarux_48.png"
@@ -365,7 +368,7 @@ function zesarux_prompt() {
 		4) # Install software packages necessary to build ZEsarUX
 
 			sudo apt-get update
-			packages=( build-essential gcc g++ libqtwebkit-dev libsdl2* sdllib libqt5* qt5* libssl libsndfile schedtool libpthread* x11 sox gzip curl git )
+			packages=( build-essential gcc g++ make libqtwebkit-dev libwpe-1.0-dev qml-module-qtwebkit libsdl2* sdllib libqt5* qt5* libssl3 libssl-dev libsndfile libsndfile1 libsndfile1-dev libncurses-dev schedtool libpthread* x11 x11-common sox gzip curl git libncurses-dev libssl-dev xorg-dev libpulse-dev libsndfile1-dev libasound2-dev )
 			for i in "${packages[@]}"; do
 				sudo apt install -y -q $i
 				sudo apt install -y -q --install-suggests $i
