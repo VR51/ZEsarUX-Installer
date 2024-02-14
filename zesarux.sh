@@ -3,10 +3,13 @@ clear
 # set -x
 ###
 #
-#	ZEsarUX Installer 1.0.53
+#	ZEsarUX Installer 1.0.54
 #
 #	General installer & updater.
 #	Compiles software from source and installs binaries and files to their expected locations.
+#
+#	Look under the Network menu in ZEsarUX Desktop. You should see 'ZX81 Online Browser' and 'Spectrum Online Browser'.
+#	These are software downlaoders. If they are not there it means you're using an old program binary and it should be deleted.
 #
 #	For OS: Linux (Debian)
 #	Tested With: Ubuntu flavours
@@ -55,6 +58,7 @@ clear
 srcloc='https://github.com/chernandezba/zesarux.git' # ZEsarUX Git directory
 # srcext='https://api.github.com/repos/chernandezba/zesarux-extras/git/blobs/bbace42189963537a19bb06c69b40654772db6e0' # ZEsarUX Logo - See ZEsarUX Extras Repo # REST API Index https://api.github.com/repos/chernandezba/zesarux-extras/contents/extras/logos
 # install='/usr/games' # ZEsarUX installation path. Where should the compiled binary be installed to? Exact path. No trailing slash.
+# Default: the binary installs to /bin/zesarux with additional files stored under /usr/share/zesarux/
 
 user=$(whoami) # Current User
 group=$(id -g -n $user) # Current user's primary group
@@ -292,10 +296,12 @@ function zesarux_prompt() {
 					sudo mv "$HOME/src/zesarux/src/zesarux_256.png" "/usr/share/icons/zesarux_256.png"
 				fi
 				
-				if test ! -f "/usr/share/applications/zesarux.desktop"; then
-					echo -e "[Desktop Entry]\nType=Application\nCategories=Game;Games\nName=ZEsarUX\nExec=zesarux\nIcon=zesarux_256\n" > "$HOME/src/zesarux/src/zesarux.desktop"
-					sudo mv "$HOME/src/zesarux/src/zesarux.desktop" "/usr/share/applications/zesarux.desktop"
+				if test -f "/usr/share/applications/zesarux.desktop"; then
+					rm -f "/usr/share/applications/zesarux.desktop"
 				fi
+				
+				echo -e "[Desktop Entry]\nType=Application\nCategories=Game;Games\nName=ZEsarUX\nExec=zesarux\nIcon=zesarux_256\n" > "$HOME/src/zesarux/src/zesarux.desktop"
+				sudo mv "$HOME/src/zesarux/src/zesarux.desktop" "/usr/share/applications/zesarux.desktop"
 
 				sudo ldconfig
 				sudo updatedb
