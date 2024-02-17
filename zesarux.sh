@@ -3,13 +3,10 @@ clear
 # set -x
 ###
 #
-#	ZEsarUX Installer 1.0.54
+#	ZEsarUX Installer 1.0.55
 #
 #	General installer & updater.
 #	Compiles software from source and installs binaries and files to their expected locations.
-#
-#	Look under the Network menu in ZEsarUX Desktop. You should see 'ZX81 Online Browser' and 'Spectrum Online Browser'.
-#	These are software downlaoders. If they are not there it means you're using an old program binary and it should be deleted.
 #
 #	For OS: Linux (Debian)
 #	Tested With: Ubuntu flavours
@@ -17,7 +14,7 @@ clear
 #	Lead Author: Lee Hodson
 #	Donate: https://paypal.me/vr51
 #	Website: https://journalxtra.com/installers/zesarux/
-#	This Release: 14th Feb 2024
+#	This Release: 17th Feb 2024
 #	First Written: 25th June 2018
 #	First Release: 25th June 2018
 #
@@ -74,7 +71,7 @@ conf[0]=0 # Essentials # Install build essential software. 0 = Not done, 1 = Don
 conf[1]=2 # Clean Stale # Do no cleaning or run make clean or delete source files? 0/1/2. 0 = No, 1 = Soft, 2 = Hard.
 conf[2]=0 # Parallel jobs to run during build # Number of CPU cores + 1 is safe. Can be as high as 2*CPU cores. More jobs can shorten build time but not always and risks system stability. 0 = Auto.
 conf[3]=$(nproc) # Number of CPU cores the computer has.
-conf[4]=$(zesarux --version) # Installed ZEsarUX Version
+conf[4]=$($HOME/.zesarux/bin/zesarux --version) # Installed ZEsarUX Version
 conf[5]=$(curl -v --silent 'https://github.com/chernandezba/zesarux/commit/master' --stderr - | grep '<relative-time datetime' | sed -E 's#.+">(.+)<.+#\1#')
 
 
@@ -96,6 +93,10 @@ cd "$filepath"
 
 if test ! -d "$HOME/src"; then
 	mkdir "$HOME/src"
+fi
+
+if test ! -d "$HOME/.zesarux"; then
+	mkdir "$HOME/.zesarux"
 fi
 
 # Functions
@@ -275,7 +276,7 @@ function zesarux_prompt() {
 			cd "$HOME/src/zesarux/src"
 			export CFLAGS="-O3"
 			export LDFLAGS="-O3"
-			./configure --enable-memptr --enable-visualmem --enable-cpustats --enable-ssl --disable-caca --disable-aa --disable-cursesw --prefix /usr
+			./configure --enable-memptr --enable-visualmem --enable-cpustats --enable-ssl --disable-caca --disable-aa --disable-cursesw --prefix "$HOME/.zesarux"
 			make clean
 			make $jobs
 			make utilities
@@ -283,10 +284,10 @@ function zesarux_prompt() {
 			# Install ZEsarUX
 			if test -f "$HOME/src/zesarux/src/zesarux"; then
 				chmod u+x "$HOME/src/zesarux/src/zesarux"
-				sudo make install
+				make install
 				# sudo ln -s "$HOME/src/zesarux/src/zesarux" "$install/zesarux" # We were going to softlink to the executable but the program wouldn't run as a link
 
-				# Add desktop file for application menu if it does not already exist
+				# Add desktop file for application menu
 				if test -f "$HOME/src/zesarux/src/zesarux.xcf"; then
 					sudo mv "$HOME/src/zesarux/src/zesarux.xcf" "/usr/share/icons/zesarux.xcf"
 					sudo mv "$HOME/src/zesarux/src/zesarux.ico" "/usr/share/icons/zesarux.ico"
@@ -297,10 +298,10 @@ function zesarux_prompt() {
 				fi
 				
 				if test -f "/usr/share/applications/zesarux.desktop"; then
-					rm -f "/usr/share/applications/zesarux.desktop"
+					sudo rm -f "/usr/share/applications/zesarux.desktop"
 				fi
 				
-				echo -e "[Desktop Entry]\nType=Application\nCategories=Game;Games\nName=ZEsarUX\nExec=zesarux\nIcon=zesarux_256\n" > "$HOME/src/zesarux/src/zesarux.desktop"
+				echo -e "[Desktop Entry]\nType=Application\nCategories=Game;Games\nName=ZEsarUX\nExec=$HOME/.zesarux/bin/zesarux\nIcon=zesarux_256\n" > "$HOME/src/zesarux/src/zesarux.desktop"
 				sudo mv "$HOME/src/zesarux/src/zesarux.desktop" "/usr/share/applications/zesarux.desktop"
 
 				sudo ldconfig
