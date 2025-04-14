@@ -1,3 +1,7 @@
+Use [GitBuilder](https://github.com/VR51/GitBuilder) instead.
+
+ZEsarUX Installer & Updater still works in 2025 but [GitBuilder](https://github.com/VR51/GitBuilder) is the future of this script and the replacement for my other individual GitHub repository downloaders and builders.
+
 # ZEsarUX Installer & Updater
 ZEsarUX Installation script written in BASH
 
